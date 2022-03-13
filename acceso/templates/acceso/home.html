@@ -1,0 +1,47 @@
+{% extends "acceso/base.html"%}
+{% block titulo %}Pokes{% endblock %}
+{% block estilos %}
+<style>
+    h1{
+        text-align: center;
+        font-size: 35px;
+        margin-top: 20px;
+    }
+</style>
+{% endblock %}
+{% block contenido %}
+<div class="container ">
+    <h1>Welcome {{request.session.usuario.nombre}} </h1>!</> <a href="/logout">Logout</a><br></h1>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message %} class="{{ message }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <h2>{{pokernumber}} people have poked you!</h2>
+    {%for poker in pokers%}
+    <p>{{poker.alias}} has poked you {{pokecount}} times.</p>
+    {%endfor%}
+    <tbody>
+        <thead>
+            <th>Name</th>
+            <th>Alias</th>
+            <th>Email</th>
+            <th>Poke History</th>
+            <th>Action</th>
+        </thead>
+        <br>
+        {%for user in other_users%}
+        <tr>
+            <td>{{usuario.nombre}}</td>
+            <td>{{usuario.alias}}</td>
+            <td>{{usuario..email_address}}</td>
+            <td>{{user.history}}</td>
+            <td><a href="poke/{{user.id}}">POKE!</a></td>
+        </tr>  
+        <br>
+        {% endfor %}
+    </tbody>
+</div>
+{% endblock %}

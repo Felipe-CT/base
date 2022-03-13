@@ -1,0 +1,74 @@
+{% extends "acceso/base.html"%}
+
+{% block titulo %}A Web Page{% endblock %}
+
+{% block contenido %}
+<header class="container-fluid bg-primary d-flex justify-content-right">
+    <h5 class="text-light col-8 mb-0 p-3">
+        Welcome
+    </h5>
+</header>
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Please register or login</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Register</h3>
+            <hr>
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ formRegister.non_field_errors }}
+                {% for field in formRegister %}
+                <div class="mb-3 row">
+                    <label for="{{ field.id_for_label }}" class="col-sm-3 col-form-label">{{ field.label }}</label>
+                    <div class="col-sm-9">
+                        {{ field }}
+                    </div>
+                    {% if field.errors %}
+                    <div class="alert alert-danger mt-2" role="alert">
+                        {% for error in field.errors %}
+                        {{ error }}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    {% if field.help_text %}
+                    <p class="help">{{ field.help_text|safe }}</p>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                <button class="btn btn-primary offset-3" type="submit">Enviar</button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <h3>Login</h3>
+            <hr>
+            <form action="home/" method="post">
+                {% csrf_token %}
+                {{ formLogin.non_field_errors }}
+                {% for field in formLogin %}
+                <div class="mb-3 row">
+                    <label for="{{ field.id_for_label }}" class="col-sm-3 col-form-label">{{ field.label }}</label>
+                    <div class="col-sm-9">
+                        {{ field }}
+                    </div>
+                    {% if field.errors %}
+                    <div class="alert alert-danger mt-2" role="alert">
+                        {% for error in field.errors %}
+                        {{ error }}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    {% if field.help_text %}
+                    <p class="help">{{ field.help_text|safe }}</p>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                <button class="btn btn-primary offset-3" type="submit">Enviar</button>
+            </form>
+        </div>
+    </div>
+</div>
+<footer class="container-fluid bg-primary " style="margin-top: 100px; height: 60px; position: absolute; width: 100%;"></footer>
+{% endblock %}
